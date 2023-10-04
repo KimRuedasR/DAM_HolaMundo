@@ -1,20 +1,31 @@
+import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 
 export default function App() {
+  const [ username, setUsername ] = useState("Usuario");
 
-  function hola() {
-    alert("Hola");
+  function headerHandler(text) {
+    setUsername(text);
+    console.log("header: " + username);
+    console.log("input: " + text);
   }
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input_login} placeholder='Usuario...'/>
-      <TextInput style={styles.input_login} placeholder='Contraseña...' secureTextEntry={true}/>
+      <Text style={styles.login_header}>Hola, {username}.</Text>
+      <TextInput 
+        onChangeText={headerHandler} 
+        style={styles.input_login} 
+        placeholder="Usuario..."/>
+      <TextInput 
+        style={styles.input_login} 
+        placeholder="Contraseña..." 
+        secureTextEntry={true}/>
 
       <TouchableOpacity style={styles.login_btn}>
-          <Text style={{fontSize: 16, color: 'white' }}>Iniciar sesión</Text>
+          <Text style={{fontSize: 18, color: 'white' }}>Iniciar sesión</Text>
       </TouchableOpacity>
-
       <StatusBar style="auto" />
     </View>
   );

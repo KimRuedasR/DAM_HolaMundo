@@ -1,31 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 
 export default function App() {
-  const [inputValue, setInputValue] = useState(''); // State to store input value
 
-  // Function to handle button press
-  const handleButtonPress = () => {
-    alert(`You entered: ${inputValue}`);
-  };
-
+  function hola() {
+    alert("Hola");
+  }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hello world</Text>
+      <TextInput style={styles.input_login} placeholder='Usuario...'/>
+      <TextInput style={styles.input_login} placeholder='Contraseña...' secureTextEntry={true}/>
 
-      <Text>DAM</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Escribe algo"
-        onChangeText={(text) => setInputValue(text)}
-        value={inputValue}
-      />
-
-      <Button title="Presioname" onPress={handleButtonPress} />
-
-      <View style={styles.box}></View>
+      <TouchableOpacity style={styles.login_btn}>
+          <Text style={{fontSize: 16, color: 'white' }}>Iniciar sesión</Text>
+      </TouchableOpacity>
 
       <StatusBar style="auto" />
     </View>
@@ -39,22 +27,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-  },
-  input: {
-    height: 40,
-    width: 200,
-    borderColor: 'gray',
+  input_login: {
+    width: "90%", 
+    height:55,
+    borderColor:'rgba(0, 0, 0, 0.5)',
     borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
+    borderRadius: 15,
+    fontSize: 20,
+    paddingLeft: 10,
+    marginBottom:20
   },
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'blue',
-    marginBottom: 16,
+  login_btn:{
+    backgroundColor: 'red', 
+    width: 170, 
+    height: 55, 
+    justifyContent:'center', 
+    alignItems: 'center',
+    borderRadius: 15
   },
 });

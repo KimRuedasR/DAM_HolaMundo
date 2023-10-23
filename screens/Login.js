@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
-import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import CustomButton from "../components/CustomButton";
 
-export default function App({ navigation }) {
+export default function Login({ navigation }) {
+  useEffect(function () {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  });
+
   const [username, setUsername] = useState("Usuario");
 
   function headerHandler(text) {

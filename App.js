@@ -10,14 +10,7 @@ import Main from "./screens/Main";
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerTintColor: "white",
-          headerStyle: {
-            backgroundColor: "red",
-          },
-        }}
-      >
+      <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
       </Stack.Navigator>

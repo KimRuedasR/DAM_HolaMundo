@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import CustomButton from "../components/CustomButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
   useEffect(function () {
@@ -11,14 +12,20 @@ export default function Login({ navigation }) {
   });
 
   const [username, setUsername] = useState("Usuario");
+  const [password, setPassword] = useState("");
 
-  function headerHandler(text) {
-    setUsername(text);
-    console.log("header: " + username);
-    console.log("input: " + text);
-  }
+  async function login() {
+    const data = {
+      user: username,
+      pass: password,
+    };
 
-  function goToMain() {
+    try {
+      await AsyncStorage.setItem("data", JSON.stringify(data));
+      console.log("Se guardaron los datos");
+    } catch (e) {
+      console.log(e);
+    }
     navigation.navigate("Main");
   }
 
@@ -26,16 +33,17 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.login_header}>Hola, {username}.</Text>
       <TextInput
-        onChangeText={headerHandler}
+        onChangeText={setUsername}
         style={styles.input_login}
         placeholder="Usuario..."
       />
       <TextInput
+        onChangeText={setPassword}
         style={styles.input_login}
         placeholder="Contraseña..."
         secureTextEntry={true}
       />
-      <CustomButton text={"Iniciar sesión"} color={"red"} action={goToMain} />
+      <CustomButton text={"Iniciar sesión"} color={"red"} action={login} />
       <StatusBar style="auto" />
     </View>
   );

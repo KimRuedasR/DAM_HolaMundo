@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 
 export default function Main({ navigation }) {
   const [dogs, setDogs] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(function () {
     navigation.setOptions({
@@ -15,14 +16,14 @@ export default function Main({ navigation }) {
       },
     });
     loadDogs();
-  });
+  }, []);
 
   async function loadDogs() {
     const response = await fetch("https://dog.ceo/api/breeds/image/random/50");
     const data = await response.json();
     const d = data.message.map((url, id) => {
       return {
-        id: id,
+        id: "dog-url-image-" + id,
         url: url,
       };
     });
@@ -44,7 +45,12 @@ export default function Main({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <FlatList data={dogs} renderItem={renderItem} />
+      <FlatList
+        data={dogs}
+        refreshing={loading}
+        onRefresh={loadDogs}
+        renderItem={renderItem}
+      />
       <StatusBar style={"light"} />
     </View>
   );
